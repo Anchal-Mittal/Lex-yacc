@@ -1,0 +1,26 @@
+%{
+#include<stdio.h>
+#include<stdlib.h
+%}
+
+int char_count=0;
+int word_count=0;
+int line_count=0;
+
+
+%%
+\n {char_count++,line_count++;}
+[^ \t\n]+ {char_count+=yyleng,word_count++;}
+. {char_count++}
+%%
+
+void main(){
+yyin=	open("my_file","r");
+yylex();
+printf("TOTAL NO.OF CHARACTER , WORDS AND LINES ARE = %d,%d,%d",char_count,word_count,line_count);
+}
+
+
+yywrap(){
+	return 1;
+}
